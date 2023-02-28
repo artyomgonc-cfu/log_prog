@@ -28,4 +28,4 @@ main :-
     minpos(X,C,Ans),
     (Ans == -9999 -> writeln("Error") ; writeln(Ans)).
 	
-?- main
+%?- main
