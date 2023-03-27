@@ -1,0 +1,26 @@
+% [tree(5, [tree(-1, [tree(1, []), tree(2, []), tree(3, [])]),
+% tree(1, [tree(2, [])]), tree(0, [tree(-2, [tree(1, []), tree(2, [])])])])]
+
+%         5
+%      /  |  \
+%    -1   1   0
+%   / | \  \   \
+%  1  2  3  2  -2
+%             / \
+%            1   2
+
+
+solve([], 0).
+solve([Tree|Other], Sum) :-
+    sum_positives(Tree, Sum1),
+    solve(Other, Sum2),
+    Sum is Sum1 + Sum2. 
+
+sum_positives(tree(Value, List), Sum) :-
+    Value > 0, !,
+    solve(List, Sum1),
+    Sum is Value + Sum1.
+sum_positives(tree(_, List), Sum) :-
+    solve(List, Sum).
+
+%?- solve([tree(5, [tree(-1, [tree(1, []), tree(2, []), tree(3, [])]), tree(1, [tree(2, [])]), tree(0, [tree(-2, [tree(1, []), tree(2, [])])])])], Sum)
